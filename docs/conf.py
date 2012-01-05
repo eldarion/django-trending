@@ -5,6 +5,7 @@ templates_path = []
 source_suffix = '.rst'
 master_doc = 'index'
 project = u'django-trending'
+package = u'trending'
 copyright_holder = 'Eldarion'
 copyright = u'2012, %s' % copyright_holder
 exclude_patterns = ['_build']
@@ -21,7 +22,7 @@ man_pages = [
 ]
 
 sys.path.insert(0, os.pardir)
-m = __import__(project)
+m = __import__(package)
 
 version = m.__version__
 release = version
