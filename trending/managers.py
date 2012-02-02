@@ -1,5 +1,6 @@
 import datetime
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Sum
 
@@ -22,10 +23,12 @@ class TrendingManager(models.Manager):
         ).order_by("-num_views")
         
         for d in views:
-            d["object"] = ContentType.objects.get_for_id(
-                d["viewed_content_type"]
-            ).get_object_for_this_type(
-                pk=d["viewed_object_id"]
-            )
-        
+            try:
+                d["object"] = ContentType.objects.get_for_id(
+                    d["viewed_content_type"]
+                ).get_object_for_this_type(
+                    pk=d["viewed_object_id"]
+                )
+            except ObjectDoesNotExist:
+                d["object"] = None
         return views
