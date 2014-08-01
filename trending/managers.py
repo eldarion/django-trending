@@ -8,7 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 
 
 class TrendingManager(models.Manager):
-    
+
     def trending(self, model, days=30, kind=""):
         views = self.filter(
             viewed_content_type=ContentType.objects.get_for_model(model),
@@ -21,7 +21,7 @@ class TrendingManager(models.Manager):
         ).annotate(
             num_views=Sum("count")
         ).order_by("-num_views")
-        
+
         for d in views:
             try:
                 d["object"] = ContentType.objects.get_for_id(

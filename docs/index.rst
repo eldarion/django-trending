@@ -19,4 +19,3 @@ Contents
  changelog
  installation
  usage
- 

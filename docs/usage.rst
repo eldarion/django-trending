@@ -43,7 +43,7 @@ get that work out of the request/response cycle::
                 for_date=datetime.date.today(),
                 view_log=view_log
             )
-    
+
     @task
     def task_update_article_trending(session_key, article_pk):
         article = Article.objects.get(pk=article_pk)
@@ -79,7 +79,7 @@ of a view where we get a queryset of trending objects::
 Now, finally to display this content in your template::
 
     <h2>Top 5 Articles for Past 7 Days</h2>
-    
+
     <ol>
         {% if trending_articles %}
             {% for trending_stat in trending_articles|slice:":5" %}
@@ -93,9 +93,9 @@ Now, finally to display this content in your template::
             {% endfor %}
         {% endif %}
     </ol>
-    
+
     <h2>Top 5 Car Reports for Past 7 Days</h2>
-    
+
     <ol>
         {% if trending_car_articles %}
             {% for trending_stat in trending_car_articles|slice:":5" %}
@@ -109,5 +109,3 @@ Now, finally to display this content in your template::
             {% endfor %}
         {% endif %}
     </ol>
-
-
