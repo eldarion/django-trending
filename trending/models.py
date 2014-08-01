@@ -35,7 +35,7 @@ class ViewLog(DateTimeAuditModel):
         fk_field="viewed_object_id"
     )
 
-    kind = models.CharField(max_length=50, blank=True) # Used to optionally delineate records that share a content type
+    kind = models.CharField(max_length=50, blank=True)  # Used to optionally delineate records that share a content type
 
     class Meta:
         unique_together = (
@@ -55,7 +55,7 @@ class DailyViewSummary(DateTimeAuditModel):
         fk_field="viewed_object_id"
     )
 
-    kind = models.CharField(max_length=50, blank=True) # Used to optionally delineate records that share a content type
+    kind = models.CharField(max_length=50, blank=True)  # Used to optionally delineate records that share a content type
 
     objects = TrendingManager()
 
@@ -74,8 +74,8 @@ class DailyViewSummary(DateTimeAuditModel):
 
         if view_log:
             qs = qs.filter(
-                viewed_content_type = view_log.viewed_content_type,
-                viewed_object_id = view_log.viewed_object_id
+                viewed_content_type=view_log.viewed_content_type,
+                viewed_object_id=view_log.viewed_object_id
             )
 
         qs = qs.values(
@@ -88,11 +88,11 @@ class DailyViewSummary(DateTimeAuditModel):
 
         for view in qs:
             summary, created = DailyViewSummary.objects.get_or_create(
-                views_on = for_date,
-                viewed_content_type = ContentType.objects.get(pk=view["viewed_content_type"]),
-                viewed_object_id = view["viewed_object_id"],
-                kind = view["kind"],
-                defaults = {"count": view["num_views"]}
+                views_on=for_date,
+                viewed_content_type=ContentType.objects.get(pk=view["viewed_content_type"]),
+                viewed_object_id=view["viewed_object_id"],
+                kind=view["kind"],
+                defaults={"count": view["num_views"]}
             )
             if not created:
                 summary.count = view["num_views"]
